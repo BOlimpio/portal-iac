@@ -1,2 +1,19 @@
 # portal-iac
-O Portal IAC é uma plataforma dedicada à Infraestrutura como Código (IAC) e tecnologias em nuvem. Explore módulos Terraform prontos para uso, desenvolvidos em diversos provedores de nuvem e diversos profissionais do mercado, com exemplos de código e colaborações da comunidade
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
