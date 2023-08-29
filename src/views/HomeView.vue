@@ -74,9 +74,13 @@
 
 
                     <v-row align="center" justify="end">
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
+                      <v-btn outlined class="blog-post-learn-btn mr-2" @click="openLink(post.link)">
                         <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
                         Download
+                      </v-btn>
+                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
+                        <v-icon left class="blog-post-learn-icon">mdi-file-document</v-icon>
+                        Docs
                       </v-btn>
                     </v-row>
                   </v-list-item>
