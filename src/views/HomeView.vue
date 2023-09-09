@@ -1,6 +1,5 @@
 <template>
   <v-app id="inspire">
-    <!-- <SideBar /> -->
     <v-container fluid class="mlmr-4">
       <v-app-bar color="rgba(0,0,0,0)" flat>
 
@@ -562,13 +561,11 @@
 </template>
 
 <script>
-import SideBar from '../components/SideBar'
 
 export default {
   name: 'Home',
 
   components: {
-    SideBar,
   },
 }
 </script>
