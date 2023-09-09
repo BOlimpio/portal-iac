@@ -1,20 +1,21 @@
 <template>
   <v-app>
     <v-main>
-      <side-bar></side-bar>
+        <top-menu></top-menu>
       <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import SideBar from "@/components/SideBar.vue"; // Importe o componente SideBar aqui
+
+import TopMenu from "@/components/TopMenu.vue";
 
 export default {
   name: "App",
 
   components: {
-    SideBar, // Registre o componente SideBar aqui
+    TopMenu,
   },
 
   // ...
