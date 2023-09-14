@@ -28,50 +28,33 @@
             <span>Add chip filters here -> AWS / Azure / Done / etc</span>
           </v-toolbar>
           <v-row class="mt-n5">
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="4" v-for="module in modules" :key="module.title">
               <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
                 <v-img src="../assets/terraform.png" height="140px"></v-img>
                 <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
+                  <span class="text-h6 font-weight-light">{{ module.title }}</span>
                 </v-card-title>
-
                 <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
+                  {{ module.description }}
                 </v-card-text>
                 <v-divider class="mx-4"></v-divider>
                 <v-card-text>
-                  <v-chip-group v-model="selectedChips">
-                    <v-chip color="indigo">AWS</v-chip>
-                    <v-chip color="orange">Done</v-chip>
-                    <v-chip color="primary">v1.0</v-chip>
+                  <v-chip-group>
+                    <v-chip color="indigo">{{ module.status }}</v-chip>
+                    <v-chip color="orange">{{ module.cloud_provider }}</v-chip>
+                    <v-chip color="primary">{{ module.version }}</v-chip>
                   </v-chip-group>
                 </v-card-text>
 
 
                 <v-card-actions class="mt-n7">
                   <v-list-item class="">
+                    <!-- Avatar dos desenvolvedores -->
                     <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
+                      <v-avatar v-for="(developer, devIndex) in module.developers" :key="devIndex" class="ml-n3" size="30">
+                        <img :src="getDeveloperAvatar(developer)" :alt="developer">
                       </v-avatar>
                     </div>
-
-
-
                     <v-row align="center" justify="end">
                       <v-btn outlined class="blog-post-learn-btn mr-2" @click="openLink(post.link)">
                         <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
@@ -81,437 +64,6 @@
                         <v-icon left class="blog-post-learn-icon">mdi-file-document</v-icon>
                         Docs
                       </v-btn>
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-                <v-divider class="mx-4"></v-divider>
-                <v-card-text>
-                  <v-chip-group v-model="selectedChips">
-                    <v-chip color="indigo">Azure</v-chip>
-                    <v-chip color="orange">In progress</v-chip>
-                    <v-chip color="primary">v1.0</v-chip>
-                  </v-chip-group>
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
-                    </v-row>
-                  </v-list-item>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-card elevation="10" class="rounded-xl ml-4" color="grey lighten-3" flat>
-                <v-img src="../assets/terraform.png" height="140px"></v-img>
-                <v-card-title>
-                  <span class="text-h6 font-weight-light">Prototyping</span>
-                </v-card-title>
-
-                <v-card-text class="">
-                  Explanation about module Explanation about module Explanation about module Explanation about module
-                  Explanation about module Explanation about module
-                </v-card-text>
-
-                <v-card-actions class="mt-n7">
-                  <v-list-item class="">
-                    <div color="grey darken-3">
-
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/3.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/4.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" size="30">
-                        <img src="https://cdn.vuetifyjs.com/images/lists/2.jpg" alt="John">
-                      </v-avatar>
-                      <v-avatar class="ml-n3" color="black" size="30">
-                        <span class="caption white--text">+1</span>
-                      </v-avatar>
-                    </div>
-
-
-
-                    <v-row align="center" justify="end">
-
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
-                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
-                        Download
-                      </v-btn>
-
                     </v-row>
                   </v-list-item>
                 </v-card-actions>
@@ -561,13 +113,39 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'Home',
 
-  components: {
+  data() {
+    return {
+      modules: [],
+    };
   },
-}
+
+  mounted() {
+    // Aqui você coloca a URL da sua lambda
+    const lambdaUrl = 'LAMBDA_URL';
+
+    axios.get(lambdaUrl)
+      .then(response => {
+        this.modules = response.data;
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar os dados da lambda:', error);
+      });
+  },
+
+  methods: {
+    // Esta função retorna o URL do avatar com base no nome do desenvolvedor
+    getDeveloperAvatar(developer) {
+      // Use o objeto de avatares que você carregou
+      const avatarFileName = developer.trim() + '.jpeg';
+      return require(`@/assets/team/${avatarFileName}`);
+    },
+  },
+};
 </script>
 
 <style>
