@@ -51,7 +51,7 @@
                   <v-list-item class="">
                     <!-- Avatar dos desenvolvedores -->
                     <div color="grey darken-3">
-                      <v-avatar v-for="(developer, devIndex) in module.developers" :key="devIndex" class="ml-n3" size="30">
+                      <v-avatar v-for="(developer, devIndex) in module.developers" :key="devIndex" class="ml-n3" size="50">
                         <img :src="getDeveloperAvatar(developer)" :alt="developer">
                       </v-avatar>
                     </div>
@@ -130,7 +130,7 @@ export default {
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'https://5eglyiyxvmrvx5rhjbteq76tfi0fkoav.lambda-url.us-east-1.on.aws/';
+    const lambdaUrl = 'https://mkaocfyfsq5ye7kdfaxujg5lda0idhou.lambda-url.us-east-1.on.aws/';
 
     axios.get(lambdaUrl)
       .then(response => {
@@ -158,7 +158,7 @@ export default {
       // Aqui você fará uma solicitação para a sua Lambda de download,
       // passando o nome do repositório como parâmetro
       const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
-      const lambdaUrldownload = `https://7jid3aqo5cotckyoipwkzv75pm0uvtvi.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
+      const lambdaUrldownload = `https://f7jtrqxkaangy6f4sldetandie0ezybg.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
 
 
       axios.get(lambdaUrldownload)
