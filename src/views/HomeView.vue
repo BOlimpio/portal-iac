@@ -56,11 +56,15 @@
                       </v-avatar>
                     </div>
                     <v-row align="center" justify="end">
-                      <v-btn outlined class="blog-post-learn-btn mr-2" @click="openLink(post.link)">
+                      <!-- <v-btn outlined class="blog-post-learn-btn mr-2" @click="openLink(post.link)">
+                        <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
+                        Download
+                      </v-btn> -->
+                      <v-btn outlined class="blog-post-learn-btn mr-2" @click="downloadHowToUse(module.github_link)">
                         <v-icon left class="blog-post-learn-icon">mdi-download</v-icon>
                         Download
                       </v-btn>
-                      <v-btn outlined class="blog-post-learn-btn" @click="openLink(post.link)">
+                      <v-btn outlined class="blog-post-learn-btn" @click="openGithubLink(module.github_link)">
                         <v-icon left class="blog-post-learn-icon">mdi-file-document</v-icon>
                         Docs
                       </v-btn>
@@ -126,7 +130,7 @@ export default {
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'LAMBDA_URL';
+    const lambdaUrl = 'https://5eglyiyxvmrvx5rhjbteq76tfi0fkoav.lambda-url.us-east-1.on.aws/';
 
     axios.get(lambdaUrl)
       .then(response => {
@@ -143,6 +147,35 @@ export default {
       // Use o objeto de avatares que você carregou
       const avatarFileName = developer.trim() + '.jpeg';
       return require(`@/assets/team/${avatarFileName}`);
+    },
+    openGithubLink(link) {
+      if (link) {
+        // Abre o link do GitHub em uma nova janela ou guia
+        window.open(link, "_blank");
+      }
+    },
+    downloadHowToUse(repoLink) {
+      // Aqui você fará uma solicitação para a sua Lambda de download,
+      // passando o nome do repositório como parâmetro
+      const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
+      const lambdaUrldownload = `https://7jid3aqo5cotckyoipwkzv75pm0uvtvi.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
+
+
+      axios.get(lambdaUrldownload)
+        .then(response => {
+          // O retorno da Lambda será o arquivo ZIP codificado em base64
+          const zipContent = response.data.zip_content;
+          const fileName = response.data.file_name;
+
+          // Crie um elemento "a" para criar um link de download
+          const link = document.createElement('a');
+          link.href = `data:application/zip;base64,${zipContent}`;
+          link.download = fileName;
+          link.click();
+        })
+        .catch((error) => {
+          console.error('Erro ao baixar o arquivo:', error);
+        });
     },
   },
 };
