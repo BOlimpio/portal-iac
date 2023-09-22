@@ -9,7 +9,7 @@
                 <v-list-item one-line>
                   <v-list-item-content>
                     <v-list-item-title class="text-h5 mb-1">
-                      Developers
+                      Contributors
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -56,57 +56,40 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
-  name: 'Home',
-
-  components: {
-
-  },
+  name: 'ContactView',
 
   data() {
     return {
-      // Example data for developers
-      developers: [
-        {
-          name: 'John Doe',
-          role: 'Software Engineer',
-          summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus mattis pellentesque. Nulla a fringilla lorem. Quisque elementum augue ut egestas porttitor. Proin nisl dui, vulputate nec erat pulvinar, vulputate.',
-          linkedin: 'https://www.linkedin.com/in/johndoe',
-          skills: ['JavaScript', 'Vue.js', 'Node.js'],
-          image: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-        },
-        {
-          name: 'Jane Smith',
-          role: 'Frontend Developer',
-          summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus mattis pellentesque. Nulla a fringilla lorem. Quisque elementum augue ut egestas porttitor. Proin nisl dui, vulputate nec erat pulvinar, vulputate.',
-          linkedin: 'https://www.linkedin.com/in/janesmith',
-          skills: ['HTML', 'CSS', 'React'],
-          image: 'https://cdn.vuetifyjs.com/images/lists/2.jpg'
-        },
-        {
-          name: 'Jane Smith',
-          role: 'Frontend Developer',
-          summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus mattis pellentesque. Nulla a fringilla lorem. Quisque elementum augue ut egestas porttitor. Proin nisl dui, vulputate nec erat pulvinar, vulputate.',
-          linkedin: 'https://www.linkedin.com/in/janesmith',
-          skills: ['HTML', 'CSS', 'React'],
-          image: 'https://cdn.vuetifyjs.com/images/lists/2.jpg'
-        },
-        // Add more developers here
-      ]
-    }
+      developers: [],
+    };
+  },
+
+  mounted() {
+    // Substitua 'sua_lambda_url_aqui' pela URL de sua lambda que retorna os dados dos desenvolvedores
+    const lambdaUrl = 'https://kp5sdzyyyhgxkeosl6535irlxi0ksbrj.lambda-url.us-east-1.on.aws/?folder_name=contributors';
+
+    axios.get(lambdaUrl)
+      .then(response => {
+        this.developers = response.data;
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar os dados da lambda:', error);
+      });
   },
 
   methods: {
     openLinkedIn(link) {
-      // Open the LinkedIn profile in a new tab/window
+      // Abre o perfil do LinkedIn em uma nova aba/janela
       window.open(link, '_blank');
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .developer-card {
   margin: 1rem;
   padding: 1rem;
@@ -120,11 +103,6 @@ export default {
   margin-top: 0.5rem;
   color: #3f51b5;
 }
-
-/* .developer-role {
-  font-size: 20px;
-  color: #3f51b5;
-} */
 
 .developer-summary {
   font-size: 14px;

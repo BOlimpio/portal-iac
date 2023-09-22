@@ -130,7 +130,7 @@ export default {
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'https://mkaocfyfsq5ye7kdfaxujg5lda0idhou.lambda-url.us-east-1.on.aws/';
+    const lambdaUrl = 'https://e2jjdlq7xdnzduoziwrkvdlngm0ankwv.lambda-url.us-east-1.on.aws/';
 
     axios.get(lambdaUrl)
       .then(response => {
@@ -158,7 +158,7 @@ export default {
       // Aqui você fará uma solicitação para a sua Lambda de download,
       // passando o nome do repositório como parâmetro
       const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
-      const lambdaUrldownload = `https://f7jtrqxkaangy6f4sldetandie0ezybg.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
+      const lambdaUrldownload = `https://zoyjv57s4pt37oxfovmbz6gkbi0uonhr.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
 
 
       axios.get(lambdaUrldownload)

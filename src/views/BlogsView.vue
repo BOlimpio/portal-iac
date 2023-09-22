@@ -54,35 +54,33 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'BlogPosts',
 
   data() {
     return {
-      // Example data for blog posts
-      blogPosts: [
-        {
-          title: 'My Journey into Vue.js',
-          date: 'July 15, 2023',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-          link: 'https://www.linkedin.com/posts/your-link',
-          image: 'https://via.placeholder.com/150x150' // Replace with actual image URL
-        },
-        {
-          title: 'Tips for Writing Clean Code',
-          date: 'July 10, 2023',
-          content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...',
-          link: 'https://www.medium.com/your-link',
-          image: 'https://via.placeholder.com/150x150' // Replace with actual image URL
-        },
-        // Add more blog posts here
-      ]
-    }
+      blogPosts: [],
+    };
+  },
+
+  mounted() {
+    // Substitua 'sua_lambda_url_aqui' pela URL de sua lambda que retorna os dados dos blogs
+    const lambdaUrl = 'https://kp5sdzyyyhgxkeosl6535irlxi0ksbrj.lambda-url.us-east-1.on.aws/?folder_name=blogs-post';
+
+    axios.get(lambdaUrl)
+      .then(response => {
+        this.blogPosts = response.data;
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar os dados da lambda:', error);
+      });
   },
 
   methods: {
     openLink(link) {
-      // Open the blog post link in a new tab/window
+      // Abre o link do blog em uma nova aba/janela
       window.open(link, '_blank');
     }
   }
