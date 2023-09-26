@@ -51,7 +51,8 @@
                   <v-list-item class="">
                     <!-- Avatar dos desenvolvedores -->
                     <div color="grey darken-3">
-                      <v-avatar v-for="(developer, devIndex) in module.developers" :key="devIndex" class="ml-n3" size="50">
+                      <v-avatar v-for="(developer, devIndex) in module.developers" :key="devIndex" class="ml-n3"
+                        size="50">
                         <img :src="getDeveloperAvatar(developer)" :alt="developer">
                       </v-avatar>
                     </div>
@@ -85,17 +86,7 @@
                 <v-icon color="black">fas fa-book</v-icon>
               </v-btn>
               <strong class="subtitle black--text ml-2">
-                Blogs post <span class="caption"><br><v-chip color="#A26BD5">14 Azure</v-chip></span>
-              </strong>
-              <v-spacer></v-spacer>
-            </v-app-bar>
-            <v-app-bar color="rgba(0,0,0,0)" tile class="mt-3">
-              <v-btn tile fab small color="green lighten-4" elevation="0">
-                <v-icon color="black">fas fa-hands-wash</v-icon>
-              </v-btn>
-              <strong class="subtitle black--text ml-2">
-                Modules in progress <span class="caption"><br><v-chip color="blue">3 Azure</v-chip> <v-chip
-                    color="orange">4 AWS</v-chip></span>
+                Blogs post <span class="caption"><br><v-chip color="#A26BD5">{{ blogPostCount }}</v-chip></span>
               </strong>
               <v-spacer></v-spacer>
             </v-app-bar>
@@ -104,8 +95,31 @@
                 <v-icon color="black">fas fa-user-friends</v-icon>
               </v-btn>
               <strong class="subtitle black--text ml-2">
-                Modules done <span class="caption"><br><v-chip color="blue">10 Azure</v-chip> <v-chip color="orange">10
-                    AWS</v-chip></span>
+                Contributors <span class="caption"><br><v-chip color="blue">{{ contributorCount }}</v-chip></span>
+              </strong>
+              <v-spacer></v-spacer>
+            </v-app-bar>
+            <v-app-bar color="rgba(0,0,0,0)" tile class="mt-3">
+              <v-btn tile fab small color="green lighten-4" elevation="0">
+                <v-icon color="black">fas fa-cog</v-icon>
+              </v-btn>
+              <strong class="subtitle black--text ml-2">
+                Modules in progress <span class="caption"><br>
+                  <v-chip color="blue">{{ modulesInProgressAzure }} Azure</v-chip>
+                  <v-chip color="orange">{{ modulesInProgressAWS }} AWS</v-chip>
+                </span>
+              </strong>
+              <v-spacer></v-spacer>
+            </v-app-bar>
+            <v-app-bar color="rgba(0,0,0,0)" tile class=mt-3>
+              <v-btn tile fab small color="blue lighten-4" elevation="0">
+                <v-icon color="black">fas fa-check</v-icon>
+              </v-btn>
+              <strong class="subtitle black--text ml-2">
+                Modules done <span class="caption"><br>
+                  <v-chip color="blue">{{ modulesDoneAzure }} Azure</v-chip>
+                  <v-chip color="orange">{{ modulesDoneAWS }} AWS</v-chip>
+                </span>
               </strong>
               <v-spacer></v-spacer>
             </v-app-bar>
@@ -125,12 +139,20 @@ export default {
   data() {
     return {
       modules: [],
+      blogPostCount: 0,
+      contributorCount: 0,
+      modulesInProgressAzure: 0,
+      modulesInProgressAWS: 0,
+      modulesDoneAzure: 0,
+      modulesDoneAWS: 0,
     };
   },
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'https://e2jjdlq7xdnzduoziwrkvdlngm0ankwv.lambda-url.us-east-1.on.aws/';
+    const lambdaUrl = 'https://2mj25uwvqqwpsq4cspjx2qsebm0ospuo.lambda-url.us-east-1.on.aws/';
+    const lambdaUrlNumberContributorsBlogs = 'https://xnpodwfdt23laxkqyhc23fff4u0ieijh.lambda-url.us-east-1.on.aws/';
+    const lambdaUrlNumberModulesCreated = 'https://tcr4ctiiszvtk57ts3iqebl56e0yyarc.lambda-url.us-east-1.on.aws/';
 
     axios.get(lambdaUrl)
       .then(response => {
@@ -138,6 +160,28 @@ export default {
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados da lambda:', error);
+      });
+
+    axios.get(lambdaUrlNumberContributorsBlogs)
+      .then(response => {
+        const keyNumbers = response.data;
+        this.blogPostCount = keyNumbers['blogs-post'];
+        this.contributorCount = keyNumbers['contributors'];
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar o numero de contributors:', error);
+      });
+
+    axios.get(lambdaUrlNumberModulesCreated)
+      .then(response => {
+        const keyNumbers = response.data;
+        this.modulesInProgressAzure = keyNumbers['modules_in_progress_azure'];
+        this.modulesInProgressAWS = keyNumbers['modules_in_progress_aws'];
+        this.modulesDoneAzure = keyNumbers['modules_done_azure'];
+        this.modulesDoneAWS = keyNumbers['modules_done_aws'];
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar o numero de modulos criados por provedor:', error);
       });
   },
 
@@ -158,7 +202,7 @@ export default {
       // Aqui você fará uma solicitação para a sua Lambda de download,
       // passando o nome do repositório como parâmetro
       const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
-      const lambdaUrldownload = `https://zoyjv57s4pt37oxfovmbz6gkbi0uonhr.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
+      const lambdaUrldownload = `https://ehbwhe2qv74rflscsvix744jiy0sellm.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
 
 
       axios.get(lambdaUrldownload)

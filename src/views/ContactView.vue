@@ -69,7 +69,7 @@ export default {
 
   mounted() {
     // Substitua 'sua_lambda_url_aqui' pela URL de sua lambda que retorna os dados dos desenvolvedores
-    const lambdaUrl = 'https://kp5sdzyyyhgxkeosl6535irlxi0ksbrj.lambda-url.us-east-1.on.aws/?folder_name=contributors';
+    const lambdaUrl = 'https://734dsm6wkyjvior4uunmvmjrwe0pinuh.lambda-url.us-east-1.on.aws/?folder_name=contributors';
 
     axios.get(lambdaUrl)
       .then(response => {
