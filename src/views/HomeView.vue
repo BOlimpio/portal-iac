@@ -150,9 +150,9 @@ export default {
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'https://2mj25uwvqqwpsq4cspjx2qsebm0ospuo.lambda-url.us-east-1.on.aws/';
-    const lambdaUrlNumberContributorsBlogs = 'https://xnpodwfdt23laxkqyhc23fff4u0ieijh.lambda-url.us-east-1.on.aws/';
-    const lambdaUrlNumberModulesCreated = 'https://tcr4ctiiszvtk57ts3iqebl56e0yyarc.lambda-url.us-east-1.on.aws/';
+    const lambdaUrl = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/get_module_data_conf';
+    const lambdaUrlNumberContributorsBlogs = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/count_contrib_blogs';
+    const lambdaUrlNumberModulesCreated = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/get_number_of_modules';
 
     axios.get(lambdaUrl)
       .then(response => {
@@ -202,7 +202,7 @@ export default {
       // Aqui você fará uma solicitação para a sua Lambda de download,
       // passando o nome do repositório como parâmetro
       const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
-      const lambdaUrldownload = `https://ehbwhe2qv74rflscsvix744jiy0sellm.lambda-url.us-east-1.on.aws/?repo_name=${fullRepoName}`;
+      const lambdaUrldownload = `https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/download_how_to_use?repo_name=${fullRepoName}`;
 
 
       axios.get(lambdaUrldownload)

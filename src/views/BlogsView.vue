@@ -67,7 +67,7 @@ export default {
 
   mounted() {
     // Substitua 'sua_lambda_url_aqui' pela URL de sua lambda que retorna os dados dos blogs
-    const lambdaUrl = 'https://734dsm6wkyjvior4uunmvmjrwe0pinuh.lambda-url.us-east-1.on.aws/?folder_name=blogs-post';
+    const lambdaUrl = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/get_portal_data?folder_name=blogs-post';
 
     axios.get(lambdaUrl)
       .then(response => {
