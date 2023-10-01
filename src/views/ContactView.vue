@@ -69,11 +69,11 @@ export default {
 
   mounted() {
     // Substitua 'sua_lambda_url_aqui' pela URL de sua lambda que retorna os dados dos desenvolvedores
-    const lambdaUrl = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/get_portal_data?folder_name=contributors';
+    const lambdaUrl = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/get_portal_data?folder_name=contributors';
 
     axios.get(lambdaUrl)
       .then(response => {
-        this.developers = response.data;
+        this.developers = JSON.parse(response.data.body);
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados da lambda:', error);

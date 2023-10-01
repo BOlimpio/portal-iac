@@ -150,13 +150,13 @@ export default {
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/get_module_data_conf';
-    const lambdaUrlNumberContributorsBlogs = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/count_contrib_blogs';
-    const lambdaUrlNumberModulesCreated = 'https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/get_number_of_modules';
+    const lambdaUrl = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/get_module_data_conf';
+    const lambdaUrlNumberContributorsBlogs = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/count_contrib_blogs';
+    const lambdaUrlNumberModulesCreated = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/get_number_of_modules';
 
     axios.get(lambdaUrl)
       .then(response => {
-        this.modules = response.data;
+        this.modules = JSON.parse(response.data.body);
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados da lambda:', error);
@@ -164,7 +164,7 @@ export default {
 
     axios.get(lambdaUrlNumberContributorsBlogs)
       .then(response => {
-        const keyNumbers = response.data;
+        const keyNumbers = JSON.parse(response.data.body);
         this.blogPostCount = keyNumbers['blogs-post'];
         this.contributorCount = keyNumbers['contributors'];
       })
@@ -174,7 +174,7 @@ export default {
 
     axios.get(lambdaUrlNumberModulesCreated)
       .then(response => {
-        const keyNumbers = response.data;
+        const keyNumbers = JSON.parse(response.data.body);
         this.modulesInProgressAzure = keyNumbers['modules_in_progress_azure'];
         this.modulesInProgressAWS = keyNumbers['modules_in_progress_aws'];
         this.modulesDoneAzure = keyNumbers['modules_done_azure'];
@@ -202,14 +202,14 @@ export default {
       // Aqui você fará uma solicitação para a sua Lambda de download,
       // passando o nome do repositório como parâmetro
       const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
-      const lambdaUrldownload = `https://1iy9uraama.execute-api.us-east-1.amazonaws.com/api/v1/download_how_to_use?repo_name=${fullRepoName}`;
+      const lambdaUrldownload = `https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/download_how_to_use?repo_name=${fullRepoName}`;
 
 
       axios.get(lambdaUrldownload)
         .then(response => {
           // O retorno da Lambda será o arquivo ZIP codificado em base64
-          const zipContent = response.data.zip_content;
-          const fileName = response.data.file_name;
+          const zipContent = response.data.body.zip_content;
+          const fileName = response.data.body.file_name;
 
           // Crie um elemento "a" para criar um link de download
           const link = document.createElement('a');
