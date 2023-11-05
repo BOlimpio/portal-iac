@@ -41,7 +41,7 @@
                 <v-card-text>
                   <v-chip-group>
                     <v-chip color="indigo">{{ module.status }}</v-chip>
-                    <v-chip color="orange">{{ module.cloud_provider }}</v-chip>
+                    <v-chip color="orange">{{ module.cloudProvider }}</v-chip>
                     <v-chip color="primary">{{ module.version }}</v-chip>
                   </v-chip-group>
                 </v-card-text>
@@ -150,9 +150,9 @@ export default {
 
   mounted() {
     // Aqui você coloca a URL da sua lambda
-    const lambdaUrl = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/get_module_data_conf';
-    const lambdaUrlNumberContributorsBlogs = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/count_contrib_blogs';
-    const lambdaUrlNumberModulesCreated = 'https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/get_number_of_modules';
+    const lambdaUrl = 'https://{url_var}/api/v1/get_module_data_conf';
+    const lambdaUrlNumberContributorsBlogs = 'https://{url_var}/api/v1/count_contrib_blogs';
+    const lambdaUrlNumberModulesCreated = 'https://{url_var}/api/v1/get_number_of_modules';
 
     axios.get(lambdaUrl)
       .then(response => {
@@ -202,7 +202,7 @@ export default {
       // Aqui você fará uma solicitação para a sua Lambda de download,
       // passando o nome do repositório como parâmetro
       const fullRepoName = repoLink.split("github.com/")[1]; // Pega tudo após "github.com/"
-      const lambdaUrldownload = `https://o85tdcumfl.execute-api.us-east-1.amazonaws.com/api/v1/download_how_to_use?repo_name=${fullRepoName}`;
+      const lambdaUrldownload = `https://{url_var}/api/v1/download_how_to_use?repo_name=${fullRepoName}`;
 
 
       axios.get(lambdaUrldownload)
