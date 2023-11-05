@@ -165,7 +165,7 @@ export default {
     axios.get(lambdaUrlNumberContributorsBlogs)
       .then(response => {
         const keyNumbers = JSON.parse(response.data.body);
-        this.blogPostCount = keyNumbers['blogs-post'];
+        this.blogPostCount = keyNumbers['blogsPost'];
         this.contributorCount = keyNumbers['contributors'];
       })
       .catch((error) => {
